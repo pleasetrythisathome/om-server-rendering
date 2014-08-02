@@ -28,7 +28,6 @@
                  [om "0.6.4"]
                  [sablono "0.2.17"]
                  [prismatic/om-tools "0.2.2"]
-                 [omdev "0.1.3-SNAPSHOT"]
 
                  ;; routing
                  [secretary "1.2.0"]
@@ -36,7 +35,9 @@
 
                  ;; dev tools
                  [ankha "0.1.3"]
-                 [shodan "0.3.0"]]
+                 [shodan "0.3.0"]
+                 [omdev "0.1.3-SNAPSHOT"]
+                 [cider/cider-nrepl "0.7.0-SNAPSHOT"]]
 
   :plugins [[lein-cljsbuild "1.0.3"]]
   :hooks [leiningen.cljsbuild]
