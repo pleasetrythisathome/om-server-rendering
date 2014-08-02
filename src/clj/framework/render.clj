@@ -1,6 +1,7 @@
 (ns framework.render
   (:require [clojure.java.io :as io]
-            [hiccup.page :refer [html5 include-css include-js]])
+            [hiccup.page :refer [html5 include-css include-js]]
+            [clojure.pprint :refer [pprint]])
   (:import [javax.script
             Invocable
             ScriptEngineManager]))
@@ -22,6 +23,7 @@
                             core
                             "render_to_string"
                             (-> edn
+                                pr-str
                                 list
                                 object-array)))]
     (fn render [state-edn]
@@ -52,6 +54,6 @@
                      (alter pool rest)
                      f))
             rendr (or rendr (render-fn*))
-            html (rendr title state-edn)]
+            html (rendr state-edn)]
         (dosync (alter pool conj rendr))
         html))))

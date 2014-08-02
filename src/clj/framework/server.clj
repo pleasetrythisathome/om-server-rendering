@@ -15,7 +15,7 @@
   In a fully featured application, this would mirror frontend routing (idealy through shared code)."
   [{:keys [uri] :as req}]
   {:uri uri
-   :source "This state was generated on the server!"})
+   :msg "This state was generated on the server!"})
 
 (defn server-renderer
   "Takes a route->state handler function.

@@ -18,7 +18,7 @@
 
 (defn app-view
   "Root application component."
-  [{:keys [uri source] :as data} owner]
+  [data owner]
   (reify
     om/IDidMount
     (did-mount [this]
