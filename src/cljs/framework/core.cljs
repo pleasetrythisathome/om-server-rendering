@@ -8,7 +8,6 @@
             [om.dom :as dom :include-macros true]
             [sablono.core :as html :refer-macros [html]]
 
-            ;;[weasel.repl :as repl]
             [shodan.console :as console :include-macros true]
             [ankha.core :as ankha]))
 
@@ -16,10 +15,6 @@
 (if (exists? js/console)
   (enable-console-print!)
   (set-print-fn! js/print))
-
-;; connect to weasel repl
-;; (when-not (repl/alive?)
-;;   (repl/connect "ws://localhost:9001" :verbose true))
 
 (defn app-view [{:keys [uri source] :as data} owner]
   (reify
