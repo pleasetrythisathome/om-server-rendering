@@ -27,10 +27,7 @@
        [:div
         [:h3
          "Hello server rendering!"]
-        [:p
-         (str "uri: " uri)]
-        [:p
-         (str "source: " source)]]))))
+        (om/build ankha/inspector data)]))))
 
 (declare app-container
          app-state)
