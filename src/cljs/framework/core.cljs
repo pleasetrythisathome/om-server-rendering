@@ -1,14 +1,16 @@
 (ns framework.core
-  (:require-macros [cljs.core.match.macros :refer [match]]
-                   [cljs.core.async.macros :as asyncm :refer [go go-loop]])
-  (:require [om.core :as om :include-macros true]
+  (:require-macros [cljs.core.async.macros :refer [go go-loop]])
+  (:require [cljs.core.async :as async]
+            [cljs.reader :as edn]
+            [goog.dom :as gdom]
+
+            [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
             [sablono.core :as html :refer-macros [html]]
-            [weasel.repl :as repl]
-            [goog.dom :as gdom]
-            [cljs.core.match]
-            [cljs.core.async :as async]
-            [cljs.reader :as edn]))
+
+            ;;[weasel.repl :as repl]
+            [shodan.console :as console :include-macros true]
+            [ankha.core :as ankha]))
 
 ; Print using Nashorn's `print` function if `console` is undefined.
 (if (exists? js/console)
@@ -21,6 +23,9 @@
 
 (defn app-view [{:keys [uri source] :as data} owner]
   (reify
+    om/IDidMount
+    (did-mount [this]
+      (console/log "app-view mounted into DOM"))
     om/IRender
     (render [this]
       (html
@@ -38,15 +43,9 @@
 (defn render
   "Renders the app to the DOM.
   Can safely be called repeatedly to rerender the app."[]
-  (let [transactions (async/chan)
-        transactions-pub (async/pub transactions :tag)]
-    (om/root app-view
-             app-state
-             {:target app-container
-              :tx-listen #(async/put! transactions %)
-              :shared {:nav-tokens (async/chan)
-                       :transactions transactions
-                       :transactions-pub transactions-pub}})))
+  (om/root app-view
+           app-state
+           {:target app-container}))
 
 (defn ^:export render-to-string
   "Takes an app state as EDN and returns the HTML for that state.

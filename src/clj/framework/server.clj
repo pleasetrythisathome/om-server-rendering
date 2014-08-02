@@ -12,7 +12,7 @@
 
 (defn basic-handler [{:keys [uri] :as req}]
   {:uri uri
-   :source "This was generate on the server!"})
+   :source "This state was generated on the server!"})
 
 (defn server-renderer
   "Takes a route->state handler function.
