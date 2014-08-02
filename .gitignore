@@ -4,6 +4,7 @@
 /logs/
 /docs/
 /checkouts/
+/out/
 
 /resources/public/out/
 /resources/public/*.js
