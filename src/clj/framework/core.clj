@@ -7,7 +7,11 @@
 
 (def nrepl-server (atom nil))
 
-(defn -main [& args]
+(defn -main
+  "Runs the application.
+  Starts the application server.
+  Starts a nrepl server with cider handlers."
+  [& args]
   (reset! nrepl-server (nrepl/start-server :port 3001
                                            :bind "0.0.0.0"
                                            :handler cider-nrepl-handler))

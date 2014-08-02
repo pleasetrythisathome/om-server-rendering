@@ -10,7 +10,10 @@
   (:use org.httpkit.server
         ring.util.response))
 
-(defn basic-handler [{:keys [uri] :as req}]
+(defn basic-handler
+  "An example req handler that returns a dummy application state based on the supplied request.
+  In a fully featured application, this would mirror frontend routing (idealy through shared code)."
+  [{:keys [uri] :as req}]
   {:uri uri
    :source "This state was generated on the server!"})
 
@@ -23,7 +26,7 @@
          (let [state (handler req)]
            {:status 200
             :headers {"Content-Type" "text/html; charset=utf-8"}
-            :body (renderer "Framework" state)}))))
+            :body (renderer state)}))))
 
 (defroutes routes
   (route/resources "/") ;; Server static resources
@@ -37,23 +40,23 @@
 
 (defonce server (atom {}))
 
-(defn start-server []
+(defn start-server
+  "Starts the application server."
+  []
   (let [port (Integer/parseInt (or (System/getenv "PORT")
                                    "8080"))]
     (reset! server (run-server application {:port port
                                             :join? false}))))
 
-(defn stop-server []
+(defn stop-server
+  "Stops the application server."
+  []
   (when-not (nil? @server)
     (@server :timeout 100)
     (reset! server nil)))
 
 (defn restart-server
+  "Restarts the application server."
   []
   (stop-server)
   (start-server))
-
-(comment
-  (start-server)
-  (restart-server)
-  )

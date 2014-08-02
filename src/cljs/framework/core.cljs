@@ -16,7 +16,9 @@
   (enable-console-print!)
   (set-print-fn! js/print))
 
-(defn app-view [{:keys [uri source] :as data} owner]
+(defn app-view
+  "Root application component."
+  [{:keys [uri source] :as data} owner]
   (reify
     om/IDidMount
     (did-mount [this]
