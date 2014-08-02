@@ -4,10 +4,11 @@
        :cljsbuild
        {:builds {:dev
                  {:source-paths ["src/cljs"]
-                  :compiler {:output-to "resources/public/framework.js"
+                  :compiler {:preamble ["react/react.min.js"]
+                             :output-to "resources/public/framework.js"
                              :output-dir "resources/public/out"
-                             :optimizations :none
-                             :source-map true}}}}
+                             :source-map "resources/public/framework.js.map"
+                             :optimizations :whitespace}}}}
 
        :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
 
