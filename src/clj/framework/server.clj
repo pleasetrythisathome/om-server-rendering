@@ -2,27 +2,32 @@
   (:require [clojure.string     :as str]
             [clojure.java.io    :as io]
             [clojure.pprint     :refer [pprint]]
-            [compojure.core     :as comp :refer [defroutes GET POST context]]
+            [compojure.core     :as comp :refer [defroutes GET]]
             [compojure.route    :as route]
             [compojure.handler  :as handler]
-            [hiccup.core        :as hiccup]
             [ring.middleware.reload :as reload]
-            [ring.middleware.anti-forgery :as ring-anti-forgery]
-            [clojure.core.match :as match :refer [match]]
-            [clojure.core.async :as async :refer [<! <!! >! >!! put! take! chan go go-loop close!]]
-            [taoensso.timbre    :as timbre]
-            [framework.websocket :refer :all])
+            [framework.render :as render])
   (:use org.httpkit.server
-        ring.util.response
-        ring.middleware.cors))
+        ring.util.response))
+
+(defn basic-handler [{:keys [uri] :as req}]
+  {:uri uri
+   :source "This was generate on the server!"})
+
+(defn server-renderer
+  "Takes a route->state handler function.
+  Returns a wildcard Ring route for server-side rendering the Om frontend."
+  [handler]
+  (let [renderer (render/render-fn)]
+    (GET "*" req
+         (let [state (handler req)]
+           {:status 200
+            :headers {"Content-Type" "text/html; charset=utf-8"}
+            :body (renderer "Framework" state)}))))
 
 (defroutes routes
-  (GET "/" []
-       (-> "public/index.html"
-           io/resource
-           slurp))
-  (route/resources "/")
-  (websocket-context)
+  (route/resources "/") ;; Server static resources
+  (server-renderer basic-handler)
   (route/not-found "Not Found"))
 
 

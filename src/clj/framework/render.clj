@@ -9,10 +9,10 @@
   (let [js (doto (.getEngineByName (ScriptEngineManager.) "nashorn")
              ; React requires either "window" or "global" to be defined.
              (.eval "var global = this")
-             (.eval (-> "public/assets/scripts/main.js"
+             (.eval (-> "public/framework.js"
                         io/resource
                         io/reader)))
-        view (.eval js "framework.view")
+        view (.eval js "framework.core")
         render-to-string (fn [edn]
                            (.invokeMethod
                             ^Invocable js
@@ -31,14 +31,13 @@
        [:body
         [:noscript "If you're seeing this then you're probably a search engine."]
         (include-css "//fonts.googleapis.com/css?family=Open+Sans:300")
-        (include-css "/assets/stylesheets/style.css")
-        (include-js "/assets/scripts/main.js")
+        (include-js "/framework.js")
         ; Render view to HTML string and insert it where React will mount.
         [:div#framework-app (render-to-string state-edn)]
         ; Serialize app state so client can initialize without making an additional request.
         [:script#framework-state {:type "application/edn"} state-edn]
         ; Initialize client and pass in IDs of the app HTML and app EDN elements.
-        [:script {:type "text/javascript"} "framework.view.init('framework-app', 'framework-state')"]]))))
+        [:script {:type "text/javascript"} "framework.core.init('framework-app', 'framework-state')"]]))))
 
 (defn render-fn
   "Returns a function to render fully-formed HTML.
