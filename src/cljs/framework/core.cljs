@@ -11,8 +11,8 @@
 (enable-console-print!)
 
 ;; connect to weasel repl
-(when-not (repl/alive?)
-  (repl/connect "ws://localhost:9001" :verbose true))
+;; (when-not (repl/alive?)
+;;   (repl/connect "ws://localhost:9001" :verbose true))
 
 (def app-state (atom {:text "Hello world!"}))
 

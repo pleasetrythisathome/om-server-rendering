@@ -9,7 +9,7 @@
 
   :dependencies [;; clojure
                  [org.clojure/clojure "1.6.0"]
-                 [org.clojure/clojurescript "0.0-2268"]
+                 [org.clojure/clojurescript "0.0-2227"]
                  [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
                  [org.clojure/core.match "0.2.1"]
 
@@ -27,20 +27,21 @@
                  ;; om
                  [om "0.6.4"]
                  [sablono "0.2.17"]
-                 [prismatic/om-tools "0.2.2"]
+                 ;; [prismatic/om-tools "0.2.2"]
 
-                 ;; routing
-                 [secretary "1.2.0"]
-                 [pleasetrythisathome/tao "0.1.5"]
+                 ;; ;; routing
+                 ;; [secretary "1.2.0"]
+                 ;; [pleasetrythisathome/tao "0.1.5"]
 
-                 ;; dev tools
-                 [ankha "0.1.3"]
-                 [shodan "0.3.0"]
-                 [omdev "0.1.3-SNAPSHOT"]
+                 ;; ;; dev tools
+                 ;; [ankha "0.1.3"]
+                 ;; [shodan "0.3.0"]
+                 ;; [omdev "0.1.3-SNAPSHOT"]
                  [cider/cider-nrepl "0.7.0-SNAPSHOT"]]
 
   :plugins [[lein-cljsbuild "1.0.3"]]
   :hooks [leiningen.cljsbuild]
 
   :source-paths ["src/clj"]
+  :resource-paths ["resources"]
   :main framework.core)
