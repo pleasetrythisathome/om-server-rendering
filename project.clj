@@ -18,10 +18,7 @@
                  [compojure "1.1.8"]
                  [ring "1.3.0"]
                  [ring/ring-devel "1.1.8"]
-                 [ring-cors "0.1.0"]
-                 [ring/ring-anti-forgery "0.3.2"]
                  [hiccup "1.0.5"]
-                 [com.taoensso/sente "0.14.1"]
 
                  ;; utils
                  [com.taoensso/encore "1.6.0"]

@@ -27,12 +27,8 @@
 
 
 (def application (-> routes
-                     (ring-anti-forgery/wrap-anti-forgery
-                      {:read-token (fn [req] (-> req :params :csrf-token))})
                      handler/site
-                     reload/wrap-reload
-                     (wrap-cors
-                      :access-control-allow-origin #".+")))
+                     reload/wrap-reload))
 
 (defonce server (atom {}))
 
